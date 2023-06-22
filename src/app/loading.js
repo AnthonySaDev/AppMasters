@@ -15,7 +15,7 @@ export default function Loading() {
         </div>
       </main>
       <footer className="text-white font-bold text-sm mt-4">
-        "Success is not final, failure is not fatal: It is the courage to continue that counts."
+        Success is not final, failure is not fatal: It is the courage to continue that counts.
         - Winston Churchill
       </footer>
     </div>
