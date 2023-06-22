@@ -69,15 +69,15 @@ export default function Home() {
               <Image
                 src={background}
                 alt='background'
-                className='h-screen w-full object-cover brightness-75 opacity-95'
+                className='h-screen w-full object-cover brightness-50'
               />
-              <div className='absolute top-0  h-full w-7/12 mx-auto'>
-                <span className="flex flex-col gap-4 items-start justify-center h-full font-extrabold w-5/12 mx-auto">
-                  <p className="lg:text-[2.2rem] md:text-[2rem] sm:text-[2rem]">
+              <div className='absolute top-0  h-full md:w-7/12 mx-auto'>
+                <span className="flex flex-col gap-4 md:items-start items-end  justify-center h-full font-extrabold md:w-5/12 w-9/12 mx-auto">
+                  <p className="text-[2rem] brightness-200">
                     Unleash your gaming potential. Level up your{" "}
                     <span className="text-[#97399a] animate-pulse">experiencie.</span> Join the excitement!
                   </p>
-                  <button className='flex items-center justify-center gap-4 text-left w-fit mt-10 pl-6 pr-2 py-2 bg-gradient-to-r from-blue-900 to-blue-700 text-white rounded-3xl shadow hover:bg-blue-400 hover:brightness-150 transition-all duration-700'>
+                  <button className='flex whitespace-nowrap items-center justify-center gap-4 text-left w-fit mt-10 pl-6 pr-2 py-2 bg-gradient-to-r from-blue-900 to-blue-700 brightness-100 text-white rounded-3xl shadow hover:bg-blue-400 hover:brightness-150 transition-all duration-700'>
                     START NOW
                     <FaArrowCircleDown className='cursor-pointer P-3' size={32} />
                   </button>

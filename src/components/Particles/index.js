@@ -52,10 +52,10 @@ export const Partciles = () => {
             },
             links: {
               color: "#a8a8a8",
-              distance: 150,
+              distance: 200,
               enable: true,
-              opacity: 0.2,
-              width: 1,
+              opacity: 0.1,
+              width: .1,
             },
             collisions: {
               enable: true,

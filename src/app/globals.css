@@ -4,8 +4,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@700&display=swap');
 body {
-  background: rgb(90,177,174);
-  background: linear-gradient(90deg, rgba(90,177,174,1) 3%, rgba(1,149,156,1) 30%, rgba(154,58,157,1) 77%);
+  background-color: #060623;
   color: white !important;
   font-family: 'montserrat', sans-serif !important;
 }
