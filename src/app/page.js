@@ -1,107 +1,97 @@
 'use client'
+import Cards from '@/components/Cards';
+import Header from '@/components/Header';
 import { api } from '@/data/api';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import { FaArrowCircleDown } from 'react-icons/fa';
+import background from '../../public/background.jpg';
+import Loading from './loading';
 
 export default function Home() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [data, setData] = useState([]);
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
         const response = await api.get('/');
-        const newData = response.data.slice((currentPage - 1) * 12, currentPage * 12); // Buscar os itens correspondentes à página atual
+        const newData = response.data;
         setData(newData);
         setLoading(false);
       } catch (error) {
         console.error(error);
-        setLoading(false);
+        setHasError(true);
+        setLoading(true);
       }
     };
 
     fetchData();
-  }, [currentPage]);
+  }, []);
 
-  const handleNextPage = async () => {
-    try {
-      setLoading(true);
-      setCurrentPage(prevPage => prevPage + 1); // Incrementar o número da página atual
-      setLoading(false);
-    } catch (error) {
-      console.error(error);
-      setLoading(false);
-    }
-  };
-
-  const handlePreviousPage = async () => {
-    try {
-      setLoading(true);
-      setCurrentPage(prevPage => prevPage - 1); // Decrementar o número da página atual
-      setLoading(false);
-    } catch (error) {
-      console.error(error);
-      setLoading(false);
-    }
-  };
-
-
+  if (hasError) {
+    return (
+      <div className="h-screen w-full flex items-center justify-center">
+        <div className="flex flex-col items-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            className="h-12 w-12 text-red-500 mb-4"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+          <h1 className="text-xl font-bold text-white  mb-4">Error loading data.</h1>
+          <p className="text-white">Please try again later.</p>
+        </div>
+      </div>
+    )
+      ;
+  }
 
   return (
     <div>
-      <h1>Dados da API:</h1>
-
       {loading ? (
-        <p>Carregando...</p>
+        <Loading />
       ) : (
-        <main>
-          <div className="grid gap-5 justify-center items-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-            {data.map(item => (
-              <div key={item.id} className="px-2 bg-zinc-700 rounded-lg h-[650px] shadow-md p-4 py-2">
-                <h2 className="text-xl font-semibold">{item.title}</h2>
-                <img src={item.thumbnail} alt={item.title} className="w-full h-auto object-cover" />
-                <p className="text-white my-2">{item.short_description}</p>
-                <p>
-                  <span className="font-semibold">Genre:</span> {item.genre}
-                </p>
-                <p>
-                  <span className="font-semibold">Platform:</span> {item.platform}
-                </p>
-                <p>
-                  <span className="font-semibold">Publisher:</span> {item.publisher}
-                </p>
-                <p>
-                  <span className="font-semibold">Developer:</span> {item.developer}
-                </p>
-                <p>
-                  <span className="font-semibold">Release Date:</span> {item.release_date}
-                </p>
-                <p>
-                  <span className="font-semibold">Game URL:</span>{" "}
-                  <a href={item.game_url} className="text-blue-500 underline">
-                    {item.game_url}
-                  </a>
-                </p>
-                <p>
-                  <span className="font-semibold">FreeToGame Profile:</span>{" "}
-                  <a href={item.freetogame_profile_url} className="text-blue-500 underline">
-                    {item.freetogame_profile_url}
-                  </a>
-                </p>
+        <div>
+          <Header />
+          <main>
+            <div className='h-screen relative w-full z-40'>
+              <Image
+                src={background}
+                alt='background'
+                className='h-screen w-full object-cover brightness-75 opacity-95'
+              />
+              <div className='absolute top-0  h-full w-7/12 mx-auto'>
+                <span className="flex flex-col gap-4 items-start justify-center h-full font-extrabold w-5/12 mx-auto">
+                  <p className="lg:text-[2.2rem] md:text-[2rem] sm:text-[2rem]">
+                    Unleash your gaming potential. Level up your{" "}
+                    <span className="text-[#97399a] animate-pulse">experiencie.</span> Join the excitement!
+                  </p>
+                  <button className='flex items-center justify-center gap-4 text-left w-fit mt-10 pl-6 pr-2 py-2 bg-gradient-to-r from-blue-900 to-blue-700 text-white rounded-3xl shadow hover:bg-blue-400 hover:brightness-150 transition-all duration-700'>
+                    START NOW
+                    <FaArrowCircleDown className='cursor-pointer P-3' size={32} />
+                  </button>
+                </span>
               </div>
-            ))}
-          </div>
+            </div>
+            <Cards data={data} />
+          </main>
 
-
-          <div className='flex justify-around'>
-            <button onClick={handlePreviousPage} disabled={currentPage === 1}>
-              Página Anterior
-            </button>
-            <button onClick={handleNextPage}>Próxima página</button>
-          </div>
-        </main>
+        </div>
       )}
+      <footer className='bg-[#01004e] w-full text-center py-2'>
+        <p>Made with by AnthonySá © All rights reserved.</p>
+      </footer>
     </div>
   );
 }

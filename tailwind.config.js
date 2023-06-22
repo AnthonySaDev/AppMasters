@@ -12,7 +12,17 @@ module.exports = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      borderImageSource: {
+        'gradient-green-purple': 'linear-gradient(to right, #00ff00, #ff00ff)',
+      },
+    },
+    fontFamily: {
+      'montserrat': ['Montserrat', 'sans-serif'],
+      'bebas-neue': ['Bebas Neue', 'sans-serif'],
+
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'), 
+  ],
 }
